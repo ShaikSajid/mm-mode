@@ -61,7 +61,7 @@ let allData = [...firstmonth,...secondmonth];
 }
 
 })();
-let prepareResponse = {ramdanTimeing: data}
+let prepareResponse = {ramdanTiming: data}
 res.json(prepareResponse);
 });
 
