@@ -1,4 +1,5 @@
 import express from 'express'
+import axios  from 'axios';
 
 const app = express();
 app.get("/api/categories", (req,res)=>{
@@ -24,6 +25,43 @@ app.get("/api/duas", (req,res)=>{
         {category:"Ramzan", subCat:[{title:"Sahri", audio:"https://firebasestorage.googleapis.com/v0/b/masjid-mode-data.appspot.com/o/dua-before-sleeping.mp3?alt=media&token=327a64d5-4716-442b-90b7-eb770fa8fc1a", images:["https://firebasestorage.googleapis.com/v0/b/masjid-mode-data.appspot.com/o/27836152.jpg?alt=media&token=6c189592-b6de-42e6-895d-8a1521d72e5f","https://firebasestorage.googleapis.com/v0/b/masjid-mode-data.appspot.com/o/27836152.jpg?alt=media&token=6c189592-b6de-42e6-895d-8a1521d72e5f"]},{title:"Iftar", audio:"https://firebasestorage.googleapis.com/v0/b/masjid-mode-data.appspot.com/o/dua-after-waking-up-from-sleep.mp3?alt=media&token=4143710b-10c8-41fb-a69c-34bf855d2137", images:["https://firebasestorage.googleapis.com/v0/b/masjid-mode-data.appspot.com/o/27836151.jpg?alt=media&token=d19d84fc-a713-454f-9de4-897a6ab27ed5","https://firebasestorage.googleapis.com/v0/b/masjid-mode-data.appspot.com/o/27836151.jpg?alt=media&token=d19d84fc-a713-454f-9de4-897a6ab27ed5"]}]},
         
     ]}
+res.json(prepareResponse);
+});
+
+
+app.get("/api/ramdan-timings", async(req,res)=>{
+    let dates = ["2023/3","2023/4"];
+    let longitude= req.query.longitude;
+    let latitude = req.query.latitude;
+    var data = [], a,i;
+
+    let request = dates.map((date)=>
+     axios.get(`https://api.aladhan.com/v1/calendar/${date}?latitude=${latitude}&longitude=${longitude}&method=1`)
+    );
+
+
+    let response = await Promise.all(request);
+let firstmonth = response[0].data.data.slice(21,31);
+let secondmonth = response[1].data.data.slice(0,20);
+let allData = [...firstmonth,...secondmonth];
+(function(){
+    
+
+    for(i=0; i<allData.length; i++){
+        let day=allData[i].date.readable.split(" ");
+        let fajr= allData[i].timings.Fajr.replace("(IST)","").trim();
+        let maghrib=allData[i].timings.Maghrib.replace("(IST)","").trim().split(":");
+         a = {};
+         a['No'] =i+1;
+         a['Day'] =allData[i].date.gregorian.weekday.en.split('').slice(0,3).join('');
+         a['Date'] = day[0]+"-"+day[1];
+         a['Sehri'] = fajr;
+         a['Iftar'] = maghrib[0]-12 +":"+maghrib[1];
+        data.push(a);
+}
+
+})();
+let prepareResponse = {ramdanTimeing: data}
 res.json(prepareResponse);
 });
 
