@@ -49,26 +49,28 @@ let allData = [...firstmonth,...secondmonth];
 
     for(i=0; i<allData.length; i++){
         let day=allData[i].date.readable.split(" ");
-        let fajr= allData[i].timings.Fajr.replace("(IST)","").trim().split(":");
-        let fajrHours=fajr[0];
-        let fajrMinutes = fajr[1];
-        if(fajr[1] && fajrMinutes>=10){
-            fajrMinutes = fajrMinutes - 10;
-            fajrMinutes = ('0' + fajrMinutes).slice(-2); 
-        }
-        else{
-            let supstractMins = 10 - fajrMinutes;
-            fajrHours = fajrHours-1;
-            fajrMinutes = 60 - supstractMins;
-            fajrHours = ('0' + fajrHours).slice(-2);
-        }
+        let fajr= allData[i].timings.Fajr.replace("(IST)","").trim();
+        //let fajr= allData[i].timings.Fajr.replace("(IST)","").trim().split(":");
+       // let fajrHours=fajr[0];
+        //let fajrMinutes = fajr[1];
+        // if(fajr[1] && fajrMinutes>=10){
+        //     fajrMinutes = fajrMinutes - 10;
+        //     fajrMinutes = ('0' + fajrMinutes).slice(-2); 
+        // }
+        // else{
+        //     let supstractMins = 10 - fajrMinutes;
+        //     fajrHours = fajrHours-1;
+        //     fajrMinutes = 60 - supstractMins;
+        //     fajrHours = ('0' + fajrHours).slice(-2);
+        // }
         let maghrib=allData[i].timings.Maghrib.replace("(IST)","").trim().split(":");
          a = {};
          a['No'] =i+1;
          a['Day'] =allData[i].date.gregorian.weekday.en.split('').slice(0,3).join('');
          a['Date'] = day[0]+"-"+day[1];
-         a['Sehri'] = fajrHours+":"+fajrMinutes;
-         a['Iftar'] = maghrib[0]-12 +":"+maghrib[1];
+         a['Sehri'] = fajr;
+         let hrs = maghrib[0]-12;
+         a['Iftar'] =  ('0' +hrs ).slice(-2)+":"+maghrib[1];
         data.push(a);
 }
 
