@@ -75,7 +75,7 @@ let allData = [...firstmonth,...secondmonth];
 }
 
 })();
-let prepareResponse = {ramdanTiming: data}
+let prepareResponse = {ramadanYear:"1444",ramadanTiming: data}
 res.json(prepareResponse);
 });
 
