@@ -80,4 +80,29 @@ res.json(prepareResponse);
 });
 
 
+app.get('/api/festival-list',(req,res)=>{
+    let prepareResponse = {
+festivalList:[
+{name:"Shab E Meraj", images:["",""]},
+{name:"Shab E Barath", images:["",""]},
+{name:"Ramadan", images:["",""]},
+{name:"Laylat al Qadr", images:["",""]},
+{name:"Eid-al-Fitr", images:["",""]},
+{name:"Eid-al-Adha (Bakrid)", images:["",""]},
+{name:"Muharram - Islamic New Year", images:["",""]},
+{name:"Day of Ashura / Muharram", images:["",""]},
+{name:"Milad un Nabi", images:["",""]},
+{name:"Good Morning", images:["",""]},
+{name:"Good Afternoon", images:["",""]},
+{name:"Good Evening", images:["",""]},
+{name:"Good Night", images:["",""]},
+{name:"Juma Mubarak", images:["",""]},
+
+]
+    }
+
+    res.json(prepareResponse);
+})
+
+
 app.listen(3060, ()=>{console.log("app listening at 3000")});
