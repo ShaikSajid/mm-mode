@@ -1,5 +1,6 @@
 import express from 'express'
 import axios  from 'axios';
+import fs from 'fs';
 
 const app = express();
 app.get("/api/categories", (req,res)=>{
@@ -102,7 +103,20 @@ festivalList:[
     }
 
     res.json(prepareResponse);
-})
+});
+
+app.get('/api/all-duas', (req, res)=>{
+var obj;
+fs.readFile('./duasList.json', 'utf8', function (err, data) {
+  if (err) throw err;
+  obj = JSON.parse(data);
+  res.send(obj);
+});
+
+});
 
 
-app.listen(3060, ()=>{console.log("app listening at 3000")});
+
+
+
+app.listen(3060, ()=>{console.log("app listening at 3060")});
