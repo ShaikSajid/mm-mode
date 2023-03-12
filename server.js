@@ -117,7 +117,7 @@ fs.readFile('./duasList.json', 'utf8', function (err, data) {
 
 app.get('/api/quran-list', (req, res)=>{
     var obj;
-    fs.readFile('./quranList.json', 'utf8', function (err, data) {
+    fs.readFile('./quransList.json', 'utf8', function (err, data) {
       if (err) throw err;
       obj = JSON.parse(data);
       res.send(obj);
