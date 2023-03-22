@@ -42,8 +42,8 @@ app.get("/api/ramdan-timings", async(req,res)=>{
 
 
     let response = await Promise.all(request);
-let firstmonth = response[0].data.data.slice(21,31);
-let secondmonth = response[1].data.data.slice(0,20);
+let firstmonth = response[0].data.data.slice(23,31);
+let secondmonth = response[1].data.data.slice(0,22);
 let allData = [...firstmonth,...secondmonth];
 (function(){
     
