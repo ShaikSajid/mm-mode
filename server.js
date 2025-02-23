@@ -31,7 +31,7 @@ res.json(prepareResponse);
 
 
 app.get("/api/ramdan-timings", async(req,res)=>{
-    let dates = ["2023/3","2023/4"];
+    let dates = ["2025/3","2025/4"];
     let longitude= req.query.longitude;
     let latitude = req.query.latitude;
     var data = [], a,i;
@@ -42,8 +42,8 @@ app.get("/api/ramdan-timings", async(req,res)=>{
 
 
     let response = await Promise.all(request);
-let firstmonth = response[0].data.data.slice(23,31);
-let secondmonth = response[1].data.data.slice(0,22);
+let firstmonth = response[0].data.data.slice(1,31);
+let secondmonth = response[1].data.data.slice(0,1);
 let allData = [...firstmonth,...secondmonth];
 (function(){
     
