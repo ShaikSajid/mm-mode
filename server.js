@@ -86,6 +86,7 @@ let allData = [...firstmonth,...secondmonth];
          let hrs = maghribHours-12;
          a['Iftar'] =  ('0' +hrs ).slice(-2)+":"+maghribMinutes;
         data.push(a);
+        data = data.slice(0, 30);
 }
 
 })();
